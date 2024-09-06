@@ -1,0 +1,12 @@
+<section>
+  <h1>Clean Architecture Project</h1>
+
+  <div *ngIf="response$ | async as account; else loading">
+    <h2>Account Details</h2>
+    <p *ngIf="account">Name: {{ account.name }}</p>
+    <p *ngIf="account">Balance: {{ account.balance }}</p>
+    <p *ngIf="!account">No account found</p>
+  </div>
+
+  <ng-template #loading>Loading...</ng-template>
+</section>
