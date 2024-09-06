@@ -18,4 +18,4 @@ const routes: Routes = [];
   ],
   bootstrap: [MainComponent],
 })
-export class AppModule {}
+export class MainModule {}
