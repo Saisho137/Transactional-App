@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AccountGateway } from './domain/models/account/account.gateway';
+import { GetAccountUseCases } from './domain/usecases/account/get-account.usecases';
+import { AccountGatewayService } from './infraestructure/gateways/account/account-gateway.service';
+import { CommonModule } from '@angular/common';
+import { MainComponent } from './Presentation/main/main.component';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+const routes: Routes = [];
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [MainComponent],
+  imports: [BrowserModule, CommonModule, RouterModule.forRoot(routes)],
+  providers: [
+    GetAccountUseCases,
+    { provide: AccountGateway, useClass: AccountGatewayService },
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [MainComponent],
 })
-export class AppModule { }
+export class AppModule {}
