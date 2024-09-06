@@ -10,7 +10,7 @@ import { AccountMapperImplementation } from './account-gateway.mapper';
 @Injectable({
   providedIn: 'root',
 })
-export class AccountGatewayService extends AccountGateway {
+export class AccountGatewayService implements AccountGateway {
   // private apiUrl = 'https://api.example.com/accounts';
   private mapper: AccountMapperImplementation;
   private mockAccounts: AccountEntity[] = [
@@ -35,7 +35,6 @@ export class AccountGatewayService extends AccountGateway {
   ];
 
   constructor(/* private _http: HttpClient */) {
-    super();
     this.mapper = new AccountMapperImplementation();
   }
 
@@ -57,7 +56,7 @@ export class AccountGatewayService extends AccountGateway {
     return of(this.mockAccounts).pipe(
       delay(500),
       map((accountEntities) =>
-        accountEntities.map((entity) => this.mapper.mapFrom(entity))
+        accountEntities.map((entity) => this.mapper.mapFrom(entity)) //reemplazar con function
       )
     );
   }

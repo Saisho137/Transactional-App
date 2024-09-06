@@ -1,0 +1,24 @@
+<section>
+  <h1>Lista de usuarios</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of accountList$ | async">
+        <td>{{ account.id }}</td>
+        <td>{{ account.name }}</td>
+        <td>{{ account.balance | currency }}</td>
+        <td>{{ account.address || 'N/A' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #loading>Loading...</ng-template>
+</section>
