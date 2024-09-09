@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GetAccountUseCases } from '@/app/domain/usecases/account/crud-account.usecases';
 import { GetBalanceUseCase } from '@/app/domain/usecases/account/get-balance.usecase';
 import { AccountGateway } from '@/app/domain/models/account/account.gateway';
-import { AccountGatewayService } from '@/app/infraestructure/gateways/account/account-gateway.service';
+import { AccountGatewayService } from '@/app/infraestructure/gateways/account-gateway.service';
 import { MainComponent } from '@/app/Presentation/UI/main/main.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserInfoComponent } from '@/app/Presentation/UI/user-info/user-info.component';
