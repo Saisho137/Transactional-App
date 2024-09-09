@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { GetAccountUseCases } from './domain/usecases/account/get-account.usecases';
-import { AccountGateway } from './domain/models/account/account.gateway';
-import { AccountGatewayService } from './infraestructure/gateways/account/account-gateway.service';
-import { MainComponent } from './Presentation/UI/main/main.component';
+import { GetAccountUseCases } from '@/app/domain/usecases/account/get-account.usecases';
+import { AccountGateway } from '@/app/domain/models/account/account.gateway';
+import { AccountGatewayService } from '@/app/infraestructure/gateways/account/account-gateway.service';
+import { MainComponent } from '@/app/Presentation/UI/main/main.component';
 import { Routes, RouterModule } from '@angular/router';
-import { UserInfoComponent } from './Presentation/UI/user-info/user-info.component';
-import { UsersTableComponent } from './Presentation/UI/users-table/users-table.component';
+import { UserInfoComponent } from '@/app/Presentation/UI/user-info/user-info.component';
+import { UsersTableComponent } from '@/app/Presentation/UI/users-table/users-table.component';
 
 const routes: Routes = [
   {

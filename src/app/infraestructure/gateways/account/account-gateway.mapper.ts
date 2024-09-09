@@ -1,6 +1,6 @@
-import { Mapper } from '../../mappers/mapper';
-import { Account } from 'src/app/domain/models/account/account.model';
-import { AccountEntity } from './account-entity';
+import { Mapper } from '@/app/infraestructure/mappers/mapper';
+import { Account } from '@/app/domain/models/account/account.model';
+import { AccountEntity } from '@/app/infraestructure/entities/account-entity';
 
 export class AccountMapperImplementation extends Mapper<
   AccountEntity,

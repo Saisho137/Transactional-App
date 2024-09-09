@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Account } from 'src/app/domain/models/account/account.model';
-import { AccountFacade } from '../../shared/services/account-facade.service';
+import { Account } from '@/app/domain/models/account/account.model';
+import { AccountFacade } from '@/app/Presentation/shared/services/account-facade.service';
 
 @Component({
   selector: 'app-user-info',

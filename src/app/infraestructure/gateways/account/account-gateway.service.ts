@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { AccountGateway } from 'src/app/domain/models/account/account.gateway';
-import { Account } from 'src/app/domain/models/account/account.model';
-import { AccountEntity } from './account-entity';
+import { AccountGateway } from '@/app/domain/models/account/account.gateway';
+import { Account } from '@/app/domain/models/account/account.model';
+import { AccountEntity } from '@/app/infraestructure/entities/account-entity';
 import { AccountMapperImplementation } from './account-gateway.mapper';
 
 @Injectable({
@@ -55,8 +55,9 @@ export class AccountGatewayService implements AccountGateway {
   getAll(): Observable<Account[]> {
     return of(this.mockAccounts).pipe(
       delay(500),
-      map((accountEntities) =>
-        accountEntities.map((entity) => this.mapper.mapFrom(entity)) //reemplazar con function
+      map(
+        (accountEntities) =>
+          accountEntities.map((entity) => this.mapper.mapFrom(entity)) //reemplazar con function
       )
     );
   }

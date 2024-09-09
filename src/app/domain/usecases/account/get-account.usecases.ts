@@ -16,4 +16,23 @@ export class GetAccountUseCases {
   getAllAccount(): Observable<Account[]> {
     return this._accountGateway.getAll();
   }
+
+  createAccount(account: Account): Observable<Account> {
+    return this._accountGateway.create(account);
+  }
+
+  updateAccount(
+    accountId: string,
+    updatedValues: Partial<Account>
+  ): Observable<boolean> {
+    return this._accountGateway.update(accountId, updatedValues);
+  }
+
+  deleteAccount(accountId: string): Observable<boolean> {
+    return this._accountGateway.delete(accountId);
+  }
+
+  getAccountBalance(accountId: string): Observable<number> {
+    return this._accountGateway.getBalance(accountId);
+  }
 }

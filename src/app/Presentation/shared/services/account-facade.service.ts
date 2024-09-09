@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Account } from 'src/app/domain/models/account/account.model';
-import { GetAccountUseCases } from 'src/app/domain/usecases/account/get-account.usecases';
+import { Account } from '@/app/domain/models/account/account.model';
+import { GetAccountUseCases } from '@/app/domain/usecases/account/get-account.usecases';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +9,11 @@ import { GetAccountUseCases } from 'src/app/domain/usecases/account/get-account.
 export class AccountFacade {
   constructor(private _getAccountUseCases: GetAccountUseCases) {}
 
-  getAccountById(id: string) {
+  getAccountById(id: string): Observable<Account | null> {
     return this._getAccountUseCases.getAccountById(id);
   }
 
-  getAllAccount() {
+  getAllAccount(): Observable<Account[]> {
     return this._getAccountUseCases.getAllAccount();
   }
 }
