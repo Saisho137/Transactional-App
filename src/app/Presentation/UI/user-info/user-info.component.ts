@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Account } from '@/app/domain/models/account/account.model';
 import { AccountFacadeService } from '@/app/Presentation/shared/services/account-facade.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-user-info',
@@ -9,12 +10,12 @@ import { AccountFacadeService } from '@/app/Presentation/shared/services/account
 })
 export class UserInfoComponent {
   @Input() accountId: string = '';
-  account!: Account | null;
+  account$: Observable<Account | null> = of(null);
 
   constructor(private _accountFacade: AccountFacadeService) {}
 
   ngOnInit() {
-    this.loadAccount();
+    this.account$ = this._accountFacade.getAccountById('4');
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -26,8 +27,6 @@ export class UserInfoComponent {
 
   private loadAccount() {
     if (this.accountId)
-      this._accountFacade.getAccountById(this.accountId).subscribe((value) => {
-        this.account = value;
-      });
+      this.account$ = this._accountFacade.getAccountById(this.accountId);
   }
 }
