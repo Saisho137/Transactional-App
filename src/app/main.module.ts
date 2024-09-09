@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AccountGateway } from '@/app/domain/models/account/account.gateway';
 import { GetBalanceUseCase } from '@/app/domain/usecases/account/get-balance.usecase';
-import { GetAccountUseCases } from '@/app/domain/usecases/account/crud-account.usecases';
+import { CrudAccountUseCases } from '@/app/domain/usecases/account/crud-account.usecases';
 import { AccountGatewayService } from '@/app/infraestructure/gateways/account-gateway.service';
 import { UserInfoComponent } from '@/app/Presentation/UI/components/molecules';
 import { UsersTableComponent } from '@/app/Presentation/UI/components/organisms';
@@ -46,7 +46,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
   ],
   providers: [
-    GetAccountUseCases,
+    CrudAccountUseCases,
     GetBalanceUseCase,
     { provide: AccountGateway, useClass: AccountGatewayService },
   ],

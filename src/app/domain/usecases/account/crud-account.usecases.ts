@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class GetAccountUseCases {
+export class CrudAccountUseCases {
   constructor(private _accountGateway: AccountGateway) {}
 
   getAccountById(accountId: string): Observable<Account | null> {

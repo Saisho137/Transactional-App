@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account } from '@/app/domain/models/account/account.model';
-import { GetAccountUseCases } from '@/app/domain/usecases/account/crud-account.usecases';
+import { CrudAccountUseCases } from '@/app/domain/usecases/account/crud-account.usecases';
 import { GetBalanceUseCase } from '@/app/domain/usecases/account/get-balance.usecase';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { GetBalanceUseCase } from '@/app/domain/usecases/account/get-balance.use
 })
 export class AccountFacadeService {
   constructor(
-    private _getAccountUseCases: GetAccountUseCases,
+    private _getAccountUseCases: CrudAccountUseCases,
     private _getBalanceUseCase: GetBalanceUseCase
   ) {}
 
