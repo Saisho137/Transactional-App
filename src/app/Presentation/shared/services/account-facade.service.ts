@@ -13,6 +13,10 @@ export class AccountFacade {
     private _getBalanceUseCase: GetBalanceUseCase
   ) {}
 
+  createAccount(account: Account): Observable<Account> {
+    return this._getAccountUseCases.createAccount(account);
+  }
+
   getAccountById(id: string): Observable<Account | null> {
     return this._getAccountUseCases.getAccountById(id);
   }
@@ -21,19 +25,18 @@ export class AccountFacade {
     return this._getAccountUseCases.getAllAccount();
   }
 
-  create(account: Account): Observable<Account> {
-    return this._getAccountUseCases.createAccount(account);
+  getAccountBalance(id: string): Observable<number> {
+    return this._getBalanceUseCase.execute(id);
   }
 
-  update(id: string, updatedAccount: Partial<Account>): Observable<boolean> {
+  updateAccount(
+    id: string,
+    updatedAccount: Partial<Account>
+  ): Observable<boolean> {
     return this._getAccountUseCases.updateAccount(id, updatedAccount);
   }
 
-  delete(id: string): Observable<boolean> {
+  deleteAccount(id: string): Observable<boolean> {
     return this._getAccountUseCases.deleteAccount(id);
-  }
-
-  getBalance(id: string): Observable<number> {
-    return this._getBalanceUseCase.execute(id);
   }
 }

@@ -34,14 +34,23 @@ export class AccountGatewayService implements AccountGateway {
     },
   ];
 
-  private accountList$ = from([this.mockAccounts]);
-
   constructor() {
     this.mapper = new AccountMapperImplementation();
   }
 
+  create(account: Account): Observable<Account> {
+    const newAccountEntity: AccountEntity = this.mapper.mapTo(account);
+
+    newAccountEntity.key = (this.mockAccounts.length + 1).toString();
+    this.mockAccounts.push(newAccountEntity);
+
+    return of(this.mapper.mapFrom(newAccountEntity)).pipe(delay(300));
+  }
+
   getAll(): Observable<Account[]> {
-    return this.accountList$.pipe(
+    const accountList$ = from([this.mockAccounts]);
+
+    return accountList$.pipe(
       delay(500),
       map((accountEntities) => mapAccounts(accountEntities, this.mapper))
     );
@@ -61,13 +70,17 @@ export class AccountGatewayService implements AccountGateway {
     return of(null).pipe(delay(300));
   }
 
-  create(account: Account): Observable<Account> {
-    const newAccountEntity: AccountEntity = this.mapper.mapTo(account);
+  getBalance(id: string): Observable<number> {
+    const accountEntity = this.mockAccounts.find(
+      (account) => account.key === id
+    );
 
-    newAccountEntity.key = (this.mockAccounts.length + 1).toString();
-    this.mockAccounts.push(newAccountEntity);
+    if (accountEntity) {
+      const account = this.mapper.mapFrom(accountEntity);
+      return of(account.balance).pipe(delay(300));
+    }
 
-    return of(this.mapper.mapFrom(newAccountEntity)).pipe(delay(300));
+    return of(0).pipe(delay(300));
   }
 
   update(id: string, updatedAccount: Partial<Account>): Observable<boolean> {
@@ -103,19 +116,6 @@ export class AccountGatewayService implements AccountGateway {
     }
 
     return of(false).pipe(delay(300));
-  }
-
-  getBalance(id: string): Observable<number> {
-    const accountEntity = this.mockAccounts.find(
-      (account) => account.key === id
-    );
-
-    if (accountEntity) {
-      const account = this.mapper.mapFrom(accountEntity);
-      return of(account.balance).pipe(delay(300));
-    }
-
-    return of(0).pipe(delay(300));
   }
 }
 
