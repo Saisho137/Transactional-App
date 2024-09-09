@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Account } from '@/app/domain/models/account/account.model';
 import { AccountFacadeService } from '@/app/Presentation/shared/services/account-facade.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-users-table',
@@ -16,14 +16,27 @@ export class UsersTableComponent {
     balance: 0,
     address: '',
   };
-  accountIdSearch: string = ''
+  accountIdSearch: string = '';
+  account$: Observable<Account | null> = of(null);
 
   constructor(private _accountFacade: AccountFacadeService) {
     this.loadAccounts();
+    this.loadAccount();
   }
 
-  loadAccounts() {
+  private loadAccounts() {
     this.accountList$ = this._accountFacade.getAllAccounts();
+  }
+
+  private loadAccount() {
+    if (this.accountIdSearch)
+      this.account$ = this._accountFacade.getAccountById(this.accountIdSearch);
+  }
+
+  searchAccount() {
+    console.log('send');
+
+    this.loadAccount();
   }
 
   createAccount(account: Account) {
@@ -36,6 +49,7 @@ export class UsersTableComponent {
   updateAccount(id: string, updatedAccount: Partial<Account>) {
     this._accountFacade.updateAccount(id, updatedAccount).subscribe(() => {
       this.loadAccounts();
+      this.loadAccount();
     });
     this.clearSelection();
   }

@@ -28,7 +28,7 @@
   <section>
     <h2>{{selectedAccount.id ? 'Edit Account' : 'Create Account'}}</h2>
 
-    <form class="admin-panel__form" (ngSubmit)="selectedAccount.id ? clearSelection() : createAccount(selectedAccount)">
+    <form class="admin-panel__form" (submit)="selectedAccount.id ? updateAccount(selectedAccount.id, selectedAccount) : createAccount(selectedAccount)">
       <label *ngIf="selectedAccount.id" for="id">ID <input type="text" name="id" value="{{selectedAccount.id}}"
           readonly /></label>
       <label for="name">Name <input type="text" name="name" [(ngModel)]="selectedAccount.name" required /></label>
@@ -42,8 +42,10 @@
   </section>
 
   <section class="admin-panel__search">
-    <label for="idSearch">Search: <input type="text" name="idSearch" [(ngModel)]="accountIdSearch" /></label>
-    <app-user-info *ngIf="accountIdSearch" accountId="{{accountIdSearch}}"></app-user-info>
+    <form >
+      <label for="idSearch">Search: <input type="text" name="idSearch" [(ngModel)]="accountIdSearch" (input)="searchAccount()" /></label>
+    </form>
+    <app-user-info *ngIf="accountIdSearch" [account]="account$ | async"></app-user-info>
   </section>
 
 </article>

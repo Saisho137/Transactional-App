@@ -1,7 +1,7 @@
 // import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, from, BehaviorSubject } from 'rxjs';
-import { delay, map, tap } from 'rxjs/operators';
+import { delay, map, take, tap } from 'rxjs/operators';
 import { AccountGateway } from '@/app/domain/models/account/account.gateway';
 import { Account } from '@/app/domain/models/account/account.model';
 import { AccountEntity } from '@/app/infraestructure/entities/account-entity';
@@ -89,6 +89,7 @@ export class AccountGatewayService implements AccountGateway {
 
   update(id: string, updatedAccount: Partial<Account>): Observable<boolean> {
     return this.mockAccounts$.pipe(
+      take(1),
       map((accountEntities) =>
         updateAccount(id, accountEntities, updatedAccount, this.mapper)
       ),
@@ -97,13 +98,13 @@ export class AccountGatewayService implements AccountGateway {
       }),
       map((updatedAccounts) =>
         updatedAccounts.some((account) => account.key === id)
-      ),
-      delay(300)
+      )
     );
   }
 
   delete(id: string): Observable<boolean> {
     return this.mockAccounts$.pipe(
+      take(1),
       map((accountEntities) => {
         const accountIndex = accountEntities.findIndex(
           (account) => account.key === id
