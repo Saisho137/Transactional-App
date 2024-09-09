@@ -13,7 +13,7 @@ export class GetAccountUseCases {
     return this._accountGateway.getById(accountId);
   }
 
-  getAllAccount(): Observable<Account[]> {
+  getAllAccounts(): Observable<Account[]> {
     return this._accountGateway.getAll();
   }
 

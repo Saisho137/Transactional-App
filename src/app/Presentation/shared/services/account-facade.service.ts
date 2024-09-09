@@ -7,7 +7,7 @@ import { GetBalanceUseCase } from '@/app/domain/usecases/account/get-balance.use
 @Injectable({
   providedIn: 'root',
 })
-export class AccountFacade {
+export class AccountFacadeService {
   constructor(
     private _getAccountUseCases: GetAccountUseCases,
     private _getBalanceUseCase: GetBalanceUseCase
@@ -21,8 +21,8 @@ export class AccountFacade {
     return this._getAccountUseCases.getAccountById(id);
   }
 
-  getAllAccount(): Observable<Account[]> {
-    return this._getAccountUseCases.getAllAccount();
+  getAllAccounts(): Observable<Account[]> {
+    return this._getAccountUseCases.getAllAccounts();
   }
 
   getAccountBalance(id: string): Observable<number> {

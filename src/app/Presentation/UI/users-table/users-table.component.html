@@ -1,4 +1,4 @@
-<section>
+<article class="admin-panel">
   <h1>Lista de usuarios</h1>
 
   <table>
@@ -8,6 +8,7 @@
         <th>Name</th>
         <th>Balance</th>
         <th>Address</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -16,9 +17,33 @@
         <td>{{ account.name }}</td>
         <td>{{ account.balance | currency }}</td>
         <td>{{ account.address || 'N/A' }}</td>
+        <td>
+          <button (click)="selectAccount(account)">Edit</button>
+          <button (click)="deleteAccount(account.id)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <ng-template #loading>Loading...</ng-template>
-</section>
+  <section>
+    <h2>{{selectedAccount.id ? 'Edit Account' : 'Create Account'}}</h2>
+
+    <form class="admin-panel__form" (ngSubmit)="selectedAccount.id ? clearSelection() : createAccount(selectedAccount)">
+      <label *ngIf="selectedAccount.id" for="id">ID <input type="text" name="id" value="{{selectedAccount.id}}"
+          readonly /></label>
+      <label for="name">Name <input type="text" name="name" [(ngModel)]="selectedAccount.name" required /></label>
+      <label for="balance">Balance <input type="number" name="balance" [(ngModel)]="selectedAccount.balance"
+          required /></label>
+      <label for="address">Address <input type="text" name="address" [(ngModel)]="selectedAccount.address" /></label>
+
+      <button type="submit">{{ selectedAccount.id ? 'Done' : 'Create Account' }}</button>
+      <button *ngIf="!selectedAccount.id" type="button" (click)="clearSelection()">Clear</button>
+    </form>
+  </section>
+
+  <section class="admin-panel__search">
+    <label for="idSearch">Search: <input type="text" name="idSearch" [(ngModel)]="accountIdSearch" /></label>
+    <app-user-info *ngIf="accountIdSearch" accountId="{{accountIdSearch}}"></app-user-info>
+  </section>
+
+</article>

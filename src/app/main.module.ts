@@ -9,26 +9,26 @@ import { MainComponent } from '@/app/Presentation/UI/main/main.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserInfoComponent } from '@/app/Presentation/UI/user-info/user-info.component';
 import { UsersTableComponent } from '@/app/Presentation/UI/users-table/users-table.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  {
-    path: 'user-info',
-    component: UserInfoComponent,
-    pathMatch: 'full',
-    title: 'User Information',
-  },
   {
     path: 'users-table',
     component: UsersTableComponent,
     pathMatch: 'full',
-    title: 'User Information',
+    title: 'Admin Panel',
   },
-  { path: '', redirectTo: '/user-info', pathMatch: 'prefix' },
+  { path: '', redirectTo: '/users-table', pathMatch: 'prefix' },
 ];
 
 @NgModule({
   declarations: [MainComponent, UserInfoComponent, UsersTableComponent],
-  imports: [BrowserModule, CommonModule, RouterModule.forRoot(routes)],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+  ],
   providers: [
     GetAccountUseCases,
     GetBalanceUseCase,
