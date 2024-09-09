@@ -1,11 +1,12 @@
 // import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { AccountGateway } from '@/app/domain/models/account/account.gateway';
 import { Account } from '@/app/domain/models/account/account.model';
 import { AccountEntity } from '@/app/infraestructure/entities/account-entity';
 import { AccountMapperImplementation } from './account-gateway.mapper';
+import { mapAccounts } from '@/app/infraestructure/helpers/transformers';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,8 @@ export class AccountGatewayService implements AccountGateway {
     },
   ];
 
+  private accountList$ = from([this.mockAccounts]);
+
   constructor(/* private _http: HttpClient */) {
     this.mapper = new AccountMapperImplementation();
   }
@@ -53,31 +56,44 @@ export class AccountGatewayService implements AccountGateway {
   }
 
   getAll(): Observable<Account[]> {
-    return of(this.mockAccounts).pipe(
+    return this.accountList$.pipe(
       delay(500),
-      map(
-        (accountEntities) =>
-          accountEntities.map((entity) => this.mapper.mapFrom(entity)) //reemplazar con function
-      )
+      map((accountEntities) => mapAccounts(accountEntities, this.mapper))
     );
   }
 
-  /*
-  ### HTTP EXAMPLE:
-  getById(id: string): Observable<Account> {
-    return this._http
-      .get<AccountEntity>(`${this.apiUrl}/${id}`)
-      .pipe(map((accountEntity) => this.mapper.mapFrom(accountEntity)));
+  create(account: Account): Observable<Account> {
+    throw new Error('Method not implemented');
   }
 
-  getAll(): Observable<Account[]> {
-    return this._http
-      .get<AccountEntity[]>(this.apiUrl)
-      .pipe(
-        map((accountEntities) =>
-          accountEntities.map((entity) => this.mapper.mapFrom(entity))
-        )
-      );
+  update(id: string, updatedAccount: Partial<Account>): Observable<boolean> {
+    throw new Error('Method not implemented');
   }
-  */
+
+  delete(id: string): Observable<boolean> {
+    throw new Error('Method not implemented');
+  }
+
+  getBalance(id: string): Observable<number> {
+    throw new Error('Method not implemented');
+  }
 }
+
+/*
+### HTTP EXAMPLE:
+getById(id: string): Observable<Account> {
+  return this._http
+    .get<AccountEntity>(`${this.apiUrl}/${id}`)
+    .pipe(map((accountEntity) => this.mapper.mapFrom(accountEntity)));
+}
+
+getAll(): Observable<Account[]> {
+  return this._http
+    .get<AccountEntity[]>(this.apiUrl)
+    .pipe(
+      map((accountEntities) =>
+        accountEntities.map((entity) => this.mapper.mapFrom(entity))
+      )
+    );
+}
+*/

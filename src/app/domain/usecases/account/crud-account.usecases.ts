@@ -31,8 +31,4 @@ export class GetAccountUseCases {
   deleteAccount(accountId: string): Observable<boolean> {
     return this._accountGateway.delete(accountId);
   }
-
-  getAccountBalance(accountId: string): Observable<number> {
-    return this._accountGateway.getBalance(accountId);
-  }
 }
