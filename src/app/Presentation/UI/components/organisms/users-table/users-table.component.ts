@@ -34,8 +34,6 @@ export class UsersTableComponent {
   }
 
   searchAccount() {
-    console.log('send');
-
     this.loadAccount();
   }
 
